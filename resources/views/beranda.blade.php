@@ -33,7 +33,7 @@
             </div>
             <div class="info-item">
             <i class="fa-solid fa-globe"></i>
-            <span>www.ecosend.com</span>
+            <span>www.ecosend.my.id</span>
             </div>
         </div>
         </section>
@@ -60,10 +60,7 @@
             <li>Mengurangi emisi CO₂ di sektor logistik</li>
             </ul>
         </div>
-        </div>
-        <div class="about-decor">
-        <img src="{{ asset('images/earth-icon.png') }}" alt="Bumi Hijau">
-        </div>
+            <img src="{{ asset('images/earth-icon.png') }}" alt="Earth Icon" class="earth-bg">
         </section>
     </main>
 
