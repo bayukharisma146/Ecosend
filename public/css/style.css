@@ -1,0 +1,199 @@
+/* === IMPORT FONT === */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+/* === STYLE DASAR === */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: #2f5130;
+  background-color: #f8f9f7;
+}
+
+/* === NAVBAR === */
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.navbar .container {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #2f5130;
+}
+.logo img {
+  width: 35px;
+  height: 35px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #2f5130;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a.active,
+.nav-links a:hover {
+  background-color: #2f5130;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+}
+
+/* === SEARCH BOX === */
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #2f5130;
+  border-radius: 30px;
+  padding: 5px 10px;
+}
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  padding: 3px;
+}
+.search-box button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/* === MAIN CONTENT === */
+.content {
+  text-align: center;
+  padding: 100px 20px 60px;
+}
+
+.intro .title {
+  font-family: 'Merriweather', serif;
+  font-size: 36px;
+  color: #1d5127;
+}
+
+.highlight {
+  color: #2f8f3a;
+}
+
+.subtitle {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #3a6a3f;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* === CARD FITUR === */
+.features {
+  margin-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  width: 280px;
+  padding: 30px 20px;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card i {
+  font-size: 40px;
+  color: #2f8f3a;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin: 10px 0;
+  color: #1d5127;
+  font-weight: 600;
+}
+
+.card p {
+  color: #3a6a3f;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* === FOOTER === */
+.footer {
+  background-color: #2f5130;
+  color: white;
+  text-align: center;
+  padding: 25px 10px;
+  font-size: 14px;
+  margin-top: 60px;
+  border-radius: 20px 20px 0 0;
+}
+
+/* === RESPONSIVE NAVBAR & LAYOUT === */
+@media (max-width: 992px) {
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    color: #2f5130;
+  }
+
+  .navbar.active .nav-links {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links a {
+    padding: 10px 20px;
+  }
+
+  .features {
+    flex-direction: column;
+    align-items: center;
+  }
+}

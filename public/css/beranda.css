@@ -1,0 +1,266 @@
+/* === RESET DASAR === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* === HERO SECTION === */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* Area gambar 75% di kanan */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 25%;
+  width: 75%;
+  height: 100%;
+  background: url('../images/hero-bg.jpg') right center / cover no-repeat;
+  z-index: 0;
+}
+
+/* Efek gradasi dari putih → transparan (di sisi kiri gambar) */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 25%;
+  width: 25%; /* Lebar area gradasi dari sisi kiri gambar */
+  height: 100%;
+  background: linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.8) 40%, rgba(255,255,255,0) 100%);
+  z-index: 1;
+}
+
+/* Overlay putih lembut di sisi kiri (kosong) */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25%;
+  height: 100%;
+  background: #fff;
+  z-index: 2;
+}
+
+/* === KONTEN HERO === */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  padding-left: 8%;
+  max-width: 600px;
+  top: 25%;
+}
+
+.hero-content h1 {
+  font-family: 'Merriweather', serif;
+  font-size: 48px;
+  font-weight: 700;
+  color: #1d5127;
+  margin-bottom: 15px;
+  line-height: 1.3;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: #2f8f3a;
+  margin-bottom: 25px;
+}
+
+.btn-hero {
+  display: inline-block;
+  background-color: white;
+  color: #2f5130;
+  padding: 12px 25px;
+  border-radius: 30px;
+  font-weight: 600;
+  border: 2px solid #2f5130;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-hero:hover {
+  background-color: #2f5130;
+  color: white;
+}
+
+/* === HERO FOOTER === */
+.hero-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  background-color: #2f8f3a;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 25px;
+  z-index: 4;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.info-item i {
+  color: white;
+  font-size: 15px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero::before {
+    left: 0;
+    width: 100%;
+  }
+
+  .hero::after {
+    display: none; /* Hilangkan gradasi di mobile */
+  }
+
+  .hero-overlay {
+    display: none;
+  }
+
+  .hero-content {
+    padding: 0 25px;
+    top: auto;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 32px;
+  }
+
+  .hero-content p {
+    font-size: 16px;
+  }
+
+  .btn-hero {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .hero-footer {
+    flex-direction: column;
+    gap: 10px;
+    font-size: 13px;
+    width: 90%;
+    border-radius: 15px;
+  }
+}
+
+/* === SECTION: TENTANG ECOSEND === */
+.about {
+  position: relative;
+  padding: 100px 10%;
+  background-color: #fff;
+  color: #2f5130;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.about-title {
+  font-family: 'Merriweather', serif;
+  font-size: 36px;
+  color: #1d5127;
+  margin-bottom: 40px;
+}
+
+.about-title span {
+  color: #2f8f3a;
+}
+
+.about-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1100px;
+  flex-wrap: wrap;
+}
+
+.about-image img {
+  width: 320px;
+  border-radius: 10px;
+  border: 3px solid #b8b4f0;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.about-text {
+  flex: 1;
+  line-height: 1.7;
+}
+
+.about-text h3 {
+  color: #2f8f3a;
+  margin-top: 15px;
+}
+
+.about-text ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.about-text li {
+  list-style-type: disc;
+  margin-bottom: 5px;
+}
+
+/* Dekorasi globe di kanan bawah */
+.about-decor {
+  position: absolute;
+  right: 60px;
+  bottom: 40px;
+  opacity: 0.2;
+}
+
+.about-decor img {
+  width: 160px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .about {
+    padding: 60px 20px;
+  }
+
+  .about-container {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .about-image img {
+    width: 250px;
+  }
+
+  .about-text {
+    text-align: center;
+  }
+
+  .about-decor {
+    display: none;
+  }
+}
