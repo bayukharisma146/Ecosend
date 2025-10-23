@@ -184,7 +184,7 @@
 
 .about-title {
   font-family: 'Merriweather', serif;
-  font-size: 36px;
+  font-size: 56px;
   color: #1d5127;
   margin-bottom: 40px;
 }
@@ -211,7 +211,7 @@
 .about-text {
   max-width: 600px;
   position: relative;
-  z-index: 2; /* Supaya teks tetap di atas ikon bumi */
+  z-index: 2; /* teks tetap di atas globe */
   color: #333;
 }
 
@@ -230,16 +230,20 @@
   margin-bottom: 5px;
 }
 
-/* Dekorasi globe di kanan bawah */
+/* === Dekorasi globe di kanan bawah === */
 .about-decor {
   position: absolute;
   right: 60px;
   bottom: 40px;
-  opacity: 0.2;
+  z-index: 1; /* di bawah teks */
+  pointer-events: none; /* tidak menghalangi klik/seleksi teks */
 }
 
 .about-decor img {
-  width: 160px;
+  width: 335px;
+  opacity: 0.6; /* transparansi globe */
+  mix-blend-mode: lighten; /* membuat globe menyatu dengan background */
+  display: block;
 }
 
 /* RESPONSIVE */
@@ -263,6 +267,6 @@
   }
 
   .about-decor {
-    display: none;
+    display: none; /* sembunyikan globe di mobile */
   }
 }

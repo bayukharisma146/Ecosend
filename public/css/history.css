@@ -1,0 +1,147 @@
+/* === HISTORY PAGE === */
+.history-section {
+  padding: 60px 20px;
+  background-color: #f5f7f5;
+}
+
+.history-section .container {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.history-section h2 {
+  font-size: 2rem;
+  color: #2e7d32;
+  margin-bottom: 30px;
+  font-weight: 600;
+  position: relative;
+}
+
+.history-section h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background-color: #2e7d32;
+  margin: 10px auto 0;
+  border-radius: 3px;
+}
+
+/* === CARD STYLE === */
+.history-card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 30px;
+  text-align: left;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+}
+
+.history-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+.card-header {
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.card-header h3 {
+  font-size: 1.3rem;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.card-header .date {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.card-body p {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-body i {
+  color: #2e7d32;
+  width: 20px;
+  text-align: center;
+}
+
+/* === STATUS STYLE === */
+.status {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.status.selesai {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status.proses {
+  background: #fff3e0;
+  color: #ef6c00;
+}
+
+.status.batal {
+  background: #ffebee;
+  color: #c62828;
+}
+
+/* === CARD FOOTER (TOMBOL) === */
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-download {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background-color: #2e7d32;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-download:hover {
+  background-color: #256528;
+}
+
+/* Tombol tidak ikut di-capture */
+.no-capture {
+  position: relative;
+  z-index: 5;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .history-card {
+    padding: 20px;
+  }
+  .card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-download {
+    width: 100%;
+    justify-content: center;
+  }
+}

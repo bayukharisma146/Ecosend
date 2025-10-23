@@ -60,7 +60,10 @@
             <li>Mengurangi emisi CO₂ di sektor logistik</li>
             </ul>
         </div>
-            <img src="{{ asset('images/earth-icon.png') }}" alt="Earth Icon" class="earth-bg">
+        </div>
+        <div class="about-decor">
+        <img src="{{ asset('images/earth-icon.png') }}" alt="Bumi Hijau">
+        </div>
         </section>
     </main>
 

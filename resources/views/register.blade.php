@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Masuk | Ecosend</title>
+  <title>Daftar | Ecosend</title>
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
   <link rel="stylesheet" href="{{ asset('css/login.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -15,9 +15,13 @@
 <main class="login-page">
   <div class="login-container">
     <div class="login-left">
-      <h1>Masuk ke Akun <span>ECOSEND</span></h1>
+      <h1>Buat Akun <span>ECOSEND</span></h1>
 
       <form class="login-form">
+        <div class="input-group">
+          <input type="text" placeholder="Nama Lengkap" required>
+        </div>
+
         <div class="input-group">
           <input type="email" placeholder="E-Mail" required>
         </div>
@@ -26,12 +30,14 @@
           <input type="password" placeholder="Password" required>
         </div>
 
-        <p class="forgot-password"><a href="/forgot-password">Lupa Password?</a></p>
+        <div class="input-group">
+          <input type="password" placeholder="Konfirmasi Password" required>
+        </div>
 
-        <button type="submit" class="btn-login">MASUK</button>
+        <button type="submit" class="btn-login">DAFTAR</button>
 
         <p class="register-text">
-          Belum punya akun? <a href="/register">DAFTAR SEKARANG</a>
+          Sudah punya akun? <a href="/masuk">MASUK SEKARANG</a>
         </p>
       </form>
     </div>

@@ -85,6 +85,17 @@ main.login-page {
   background-color: #367c3c;
 }
 
+.forgot-password {
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: right;
+}
+
+.forgot-password a {
+  color: #1b891b;
+  text-decoration: none;
+}
+
 .register-text {
   margin-top: 20px;
   font-size: 14px;
