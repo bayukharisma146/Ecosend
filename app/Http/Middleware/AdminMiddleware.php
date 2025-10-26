@@ -6,15 +6,15 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RoleMiddleware
+class AdminMiddleware
 {
-    public function handle(Request $request, Closure $next, $role)
+    public function handle(Request $request, Closure $next)
     {
         if (!Auth::check()) {
             return redirect('/login')->with('error', 'Harus login terlebih dahulu.');
         }
 
-        if (Auth::user()->role !== $role) {
+        if (Auth::user()->role !== 'admin') {
             return redirect('/login')->with('error', 'Akses ditolak!');
         }
 

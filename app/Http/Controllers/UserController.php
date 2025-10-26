@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function pesan()
     {
-        // halaman utama user (misalnya pemesanan)
         return view('user.pesan');
     }
 
@@ -21,4 +20,22 @@ class UserController extends Controller
     {
         return view('user.profile');
     }
+
+    public function submitOrder(Request $request) {
+    $data = $request->validate([
+        'alamat_penjemputan' => 'required|string',
+        'alamat_tujuan' => 'required|string',
+        'kendaraan' => 'required|string',
+        'waktu' => 'required|string'
+    ]);
+
+    $data['jarak'] = $request->jarak ?? null;
+    $data['biaya'] = $request->biaya ?? null;
+
+    // Simpan ke database atau lakukan proses order
+    // Order::create($data);
+
+    return redirect()->back()->with('success', 'Order berhasil dibuat!');
 }
+}
+

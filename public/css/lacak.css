@@ -1,0 +1,72 @@
+.track-section, .result-section {
+  padding: 80px 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.track-container, .result-container {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid green;
+  border-radius: 30px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+}
+
+.input-group i {
+  color: green;
+  margin-right: 10px;
+}
+
+.input-group input, .input-group select {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.btn-track, .btn-back {
+  background: green;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-track:hover, .btn-back:hover {
+  background: #0a7d33;
+}
+
+.track-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.track-table th {
+  text-align: left;
+  color: green;
+  padding: 8px;
+  width: 30%;
+}
+
+.track-table td {
+  padding: 8px;
+  color: #333;
+}
+
+.error-msg {
+  color: red;
+  font-weight: 600;
+  margin-bottom: 15px;
+}

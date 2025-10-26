@@ -17,23 +17,25 @@
     <div class="login-left">
       <h1>Masuk ke Akun <span>ECOSEND</span></h1>
 
-      <form class="login-form">
-        <div class="input-group">
-          <input type="email" placeholder="E-Mail" required>
-        </div>
+      <form class="login-form" method="POST" action="{{ route('login.process') }}">
+    @csrf
+    <div class="input-group">
+        <input type="email" name="email" placeholder="E-Mail" required>
+    </div>
 
-        <div class="input-group">
-          <input type="password" placeholder="Password" required>
-        </div>
+    <div class="input-group">
+        <input type="password" name="password" placeholder="Password" required>
+    </div>
 
-        <p class="forgot-password"><a href="/forgot-password">Lupa Password?</a></p>
+    <p class="forgot-password"><a href="{{ route('forgot-password') }}">Lupa Password?</a></p>
 
-        <button type="submit" class="btn-login">MASUK</button>
+    <button type="submit" class="btn-login">MASUK</button>
 
-        <p class="register-text">
-          Belum punya akun? <a href="/register">DAFTAR SEKARANG</a>
-        </p>
-      </form>
+    <p class="register-text">
+        Belum punya akun? <a href="{{ route('register') }}">DAFTAR SEKARANG</a>
+    </p>
+</form>
+
     </div>
 
     <div class="login-right">

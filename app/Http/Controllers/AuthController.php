@@ -27,7 +27,7 @@ public function login(Request $request)
         if ($user->role === 'admin') {
             return redirect()->route('admin.dashboard');
         } elseif ($user->role === 'user') {
-            return redirect()->route('pesan'); // <-- redirect ke pesan
+            return redirect()->route('user.pesan'); // <-- redirect ke pesan
         }
     }
 

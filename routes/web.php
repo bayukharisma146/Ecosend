@@ -2,46 +2,61 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Middleware\UserMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\PesanController;
+use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\LacakController;
 
-/*
-|--------------------------------------------------------------------------
-| Route untuk Halaman Umum (tanpa login)
-|--------------------------------------------------------------------------
-*/
+// =======================
+// Route Publik
+// =======================
 Route::get('/', fn() => view('beranda'))->name('beranda');
 Route::get('/layanan', fn() => view('layanan'))->name('layanan');
 Route::get('/dampak-hijau', fn() => view('dampak-hijau'))->name('dampak-hijau');
 
-// === Autentikasi ===
+// Login & Register
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register.process');
+
+// Lacak Pengiriman
+Route::get('/lacak', [LacakController::class, 'index'])->name('lacak.index');
+Route::post('/lacak', [LacakController::class, 'search'])->name('lacak.search');
+
+// Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// === Lupa Password ===
+// Lupa Password
 Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot-password');
 Route::post('/forgot-password', [AuthController::class, 'processForgotPassword'])->name('forgot-password.process');
 
-/*
-|--------------------------------------------------------------------------
-| Route untuk USER (harus login & role = user)
-|--------------------------------------------------------------------------
-*/
-Route::middleware(['auth', 'user'])->group(function () {
-    Route::get('/pesan', [UserController::class, 'pesan'])->name('pesan');
-    Route::get('/history', [UserController::class, 'history'])->name('history');
+// =======================
+// Route User (harus login & role user)
+// =======================
+Route::middleware([UserMiddleware::class])->group(function () {
+    Route::get('/pesan', [PesanController::class, 'create'])->name('user.pesan');
+    // Form pesan
+    // Route::get('/pesan', [PesanController::class, 'create'])->name('pesan.create');
+
+    // Submit form pesan
+    Route::post('/pesan', [PesanController::class, 'store'])->name('user.storePesan');
+
+    Route::get('/pesan/estimate', [PesanController::class, 'estimatePrice'])->name('user.estimatePrice');
+
+    // Riwayat pemesanan
+    Route::get('/history', [PesanController::class, 'history'])->name('user.history');
+
+    // Profil user (misal tetap di UserController)
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 });
-
-
-/*
-|--------------------------------------------------------------------------
-| Route untuk ADMIN (harus login & role = admin)
-|--------------------------------------------------------------------------
-*/
+// =======================
+// Route Admin (harus login & role admin)
+// =======================
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 });

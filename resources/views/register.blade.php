@@ -37,7 +37,7 @@
         <button type="submit" class="btn-login">DAFTAR</button>
 
         <p class="register-text">
-          Sudah punya akun? <a href="/masuk">MASUK SEKARANG</a>
+          Sudah punya akun? <a href="/login">MASUK SEKARANG</a>
         </p>
       </form>
     </div>
