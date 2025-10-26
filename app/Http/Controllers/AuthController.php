@@ -16,23 +16,23 @@ class AuthController extends Controller
     }
 
     // === Proses Login ===
-public function login(Request $request)
-{
-    $credentials = $request->only('email', 'password');
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
 
-    if (Auth::attempt($credentials)) {
-        $user = Auth::user();
-        
-        // Redirect sesuai role
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        } elseif ($user->role === 'user') {
-            return redirect()->route('user.pesan'); // <-- redirect ke pesan
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Redirect sesuai role
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } elseif ($user->role === 'user') {
+                return redirect()->route('user.pesan'); // <-- redirect ke pesan
+            }
         }
-    }
 
-    return back()->with('error', 'Email atau password salah.');
-}
+        return back()->with('error', 'Email atau password salah.');
+    }
 
 
     // === Halaman Register ===
@@ -66,4 +66,10 @@ public function login(Request $request)
         Auth::logout();
         return redirect('/login');
     }
+
+    public function showForgotPassword()
+    {
+        return view('forgot-password');
+    }
+
 }

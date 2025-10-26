@@ -1,84 +1,91 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lupa Password | Ecosend</title>
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/login.css') }}">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
 
-@include('components.navbar')
+<body class="bg-gradient-to-r from-green-50 via-white to-green-50">
 
-<main class="login-page">
-  <div class="login-container">
-    <div class="login-left">
-      <h1>Lupa <span>Password</span>?</h1>
-      <p class="info-text">Masukkan email dan password baru untuk mengganti password akun kamu.</p>
+  @include('components.navbar')
 
-      <form class="login-form" method="POST" action="{{ route('forgot-password.process') }}">
-        @csrf
+  <main class="login-page min-h-screen flex items-center justify-center py-12 px-4">
+    <div
+      class="login-container max-w-5xl w-full flex flex-col md:flex-row items-center bg-white rounded-2xl shadow-lg overflow-hidden">
 
-        <div class="input-group">
-          <input type="email" name="email" placeholder="E-Mail" required>
-        </div>
-
-        <div class="input-group">
-          <input type="password" name="password" placeholder="Password Baru" required>
-        </div>
-
-        <div class="input-group">
-          <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required>
-        </div>
-
-        <button type="submit" class="btn-login">RESET PASSWORD</button>
-
-        <p class="register-text">
-          Sudah ingat password? <a href="/login">MASUK</a>
+      <!-- Kiri: Form Lupa Password -->
+      <div class="login-left w-full md:w-1/2 p-8 md:p-12">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">
+          Lupa <span class="text-green-600">Password</span>?
+        </h1>
+        <p class="text-gray-600 mb-8">
+          Masukkan email dan password baru untuk mengganti password akun kamu.
         </p>
 
-        @if(session('success'))
-          <p style="color: green; margin-top: 10px;">{{ session('success') }}</p>
-        @endif
+        <form class="login-form space-y-5" method="POST" action="{{ route('forgot-password.process') }}">
+          @csrf
 
-        @if(session('error'))
-          <p style="color: red; margin-top: 10px;">{{ session('error') }}</p>
-        @endif
-      </form>
+          <!-- Input Email -->
+          <div class="flex items-center border border-gray-300 rounded-lg px-4 py-2 bg-gray-50 shadow-sm">
+            <i class="fa-solid fa-envelope text-green-600 mr-3"></i>
+            <input type="email" name="email" placeholder="E-Mail" required
+              class="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400">
+          </div>
+
+          <!-- Input Password Baru -->
+          <div class="flex items-center border border-gray-300 rounded-lg px-4 py-2 bg-gray-50 shadow-sm">
+            <i class="fa-solid fa-lock text-green-600 mr-3"></i>
+            <input type="password" name="password" placeholder="Password Baru" required
+              class="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400">
+          </div>
+
+          <!-- Konfirmasi Password -->
+          <div class="flex items-center border border-gray-300 rounded-lg px-4 py-2 bg-gray-50 shadow-sm">
+            <i class="fa-solid fa-lock text-green-600 mr-3"></i>
+            <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required
+              class="w-full bg-transparent outline-none text-gray-700 placeholder-gray-400">
+          </div>
+
+          <!-- Tombol Reset Password -->
+          <button type="submit"
+            class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition duration-200 shadow-md">
+            RESET PASSWORD
+          </button>
+
+          <!-- Link Masuk -->
+          <p class="text-center text-gray-700 text-sm mt-4">
+            Sudah ingat password?
+            <a href="{{ route('login') }}" class="text-green-600 hover:text-green-700 font-semibold">
+              MASUK
+            </a>
+          </p>
+
+          <!-- Pesan Sukses / Error -->
+          @if(session('success'))
+            <p class="text-green-600 mt-2">{{ session('success') }}</p>
+          @endif
+
+          @if(session('error'))
+            <p class="text-red-600 mt-2">{{ session('error') }}</p>
+          @endif
+        </form>
+      </div>
+
+      <!-- Kanan: Gambar -->
+      <div class="login-right hidden md:flex w-full md:w-1/2 bg-green-100 items-center justify-center p-6">
+        <img src="{{ asset('images/mobil-listrik.png') }}" alt="Mobil Listrik Ecosend"
+          class="w-80 md:w-[400px] drop-shadow-lg">
+      </div>
+
     </div>
+  </main>
 
-    <div class="login-right">
-      <img src="{{ asset('images/mobil-listrik.png') }}" alt="Mobil Listrik Ecosend">
-    </div>
-  </div>
-</main>
-
-@include('components.footer')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if(session('success'))
-  <script>
-    Swal.fire({
-      icon: 'success',
-      title: 'Berhasil!',
-      text: '{{ session('success') }}',
-      confirmButtonColor: '#2ecc71'
-    });
-  </script>
-@endif
-
-@if(session('error'))
-  <script>
-    Swal.fire({
-      icon: 'error',
-      title: 'Gagal!',
-      text: '{{ session('error') }}',
-      confirmButtonColor: '#e74c3c'
-    });
-  </script>
-@endif
+  @include('components.footer')
 
 </body>
+
 </html>
