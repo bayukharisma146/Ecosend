@@ -1,37 +1,47 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('beranda'); // ini halaman beranda
-});
-Route::get('/layanan', function () {
-    return view('layanan'); // ini halaman layanan
-});
-Route::get('/dampak-hijau', function () {
-    return view('dampak-hijau'); // ini halaman dampak hijau
-});
-Route::get('/login', function () {
-    return view('login'); // ini halaman login
-});
-Route::get('/register', function () {
-    return view('register'); // ini halaman register
-});
-Route::get('/forgot-password', function () {
-    return view('forgot-password'); // ini halaman lupa password
-});
-Route::get('/pesan', function () {
-    return view('pesan');
-})->name('pesan');
+/*
+|--------------------------------------------------------------------------
+| Route untuk Halaman Umum (tanpa login)
+|--------------------------------------------------------------------------
+*/
+Route::get('/', fn() => view('beranda'))->name('beranda');
+Route::get('/layanan', fn() => view('layanan'))->name('layanan');
+Route::get('/dampak-hijau', fn() => view('dampak-hijau'))->name('dampak-hijau');
 
-Route::get('/history', function () {
-    return view('history');
-})->name('history');
+// === Autentikasi ===
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.process');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
+// === Lupa Password ===
+Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('forgot-password');
+Route::post('/forgot-password', [AuthController::class, 'processForgotPassword'])->name('forgot-password.process');
 
-Route::post('/logout', function () {
-    return redirect('/login');
-})->name('logout');
+/*
+|--------------------------------------------------------------------------
+| Route untuk USER (harus login & role = user)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/pesan', [UserController::class, 'pesan'])->name('pesan');
+    Route::get('/history', [UserController::class, 'history'])->name('history');
+    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+});
+
+
+/*
+|--------------------------------------------------------------------------
+| Route untuk ADMIN (harus login & role = admin)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+});

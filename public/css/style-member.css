@@ -8,56 +8,64 @@
 
 /* === NAVBAR MEMBER === */
 .navbar-member {
-  background-color: #ffffff;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 100;
   width: 100%;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
 .navbar-member .container {
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 60px;
+  padding: 15px 0;
 }
 
-.logo a {
+/* === LOGO === */
+.logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-weight: 600;
+  color: #2f5130;
   text-decoration: none;
-  color: #2e7d32;
-  font-weight: 700;
-  font-size: 1.3rem;
 }
 
 .logo img {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
 }
 
 /* === NAV LINKS === */
 .nav-links {
   display: flex;
-  gap: 30px;
+  gap: 25px;
   list-style: none;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: #333;
+  color: #2f5130;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: 0.3s;
+  padding: 5px 15px;
+  border-radius: 20px;
 }
 
-.nav-links a:hover,
-.nav-links .active {
-  color: #2e7d32;
+.nav-links a.active,
+.nav-links a:hover {
+  background-color: #2f5130;
+  color: white;
 }
 
-/* === DROPDOWN USER === */
+/* === USER DROPDOWN === */
 .user-dropdown {
   position: relative;
   display: flex;
@@ -72,19 +80,22 @@
   gap: 8px;
   cursor: pointer;
   font-weight: 500;
-  color: #333;
-  transition: color 0.3s;
+  color: #2f5130;
+  transition: 0.3s;
+  padding: 5px 15px;
+  border-radius: 20px;
 }
 
 .user-btn:hover {
-  color: #2e7d32;
+  background-color: #2f5130;
+  color: #fff;
 }
 
 .user-btn i.fa-user-circle {
   font-size: 1.8rem;
-  color: #2e7d32;
 }
 
+/* === DROPDOWN MENU === */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -92,7 +103,7 @@
   top: 120%;
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   min-width: 180px;
   animation: fadeIn 0.3s ease;
@@ -106,7 +117,7 @@
   gap: 10px;
   padding: 10px 16px;
   text-decoration: none;
-  color: #333;
+  color: #2f5130;
   background: none;
   border: none;
   font-size: 0.9rem;
@@ -117,16 +128,16 @@
 .dropdown-content a:hover,
 .dropdown-content button:hover {
   background-color: #f3f8f3;
-  color: #2e7d32;
+  color: #2f5130;
 }
 
-/* Animasi dropdown */
+/* === Animasi dropdown === */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Tampilkan dropdown saat hover */
+/* === Hover trigger === */
 .user-dropdown:hover .dropdown-content {
   display: block;
 }
@@ -136,6 +147,7 @@
   display: none;
   font-size: 1.5rem;
   cursor: pointer;
+  color: #2f5130;
 }
 
 @media (max-width: 768px) {

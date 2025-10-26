@@ -19,7 +19,7 @@
         <div class="hero-content">
             <h1>Green Delivery for a Better Tomorrow</h1>
             <p>Gaya Hidup Cerdas: Ramah Lingkungan, Hemat, dan Efisien</p>
-            <a href="/pesan" class="btn-hero">Pesan Sekarang</a>
+            <a href="/login" class="btn-hero">Pesan Sekarang</a>
         </div>
 
         <div class="hero-footer">
