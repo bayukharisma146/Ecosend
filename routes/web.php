@@ -9,6 +9,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LacakController;
+use App\Http\Controllers\ProfileController;
 
 // =======================
 // Route Publik
@@ -51,8 +52,8 @@ Route::middleware([UserMiddleware::class])->group(function () {
     // Riwayat pemesanan
     Route::get('/history', [PesanController::class, 'history'])->name('user.history');
 
-    // Profil user (misal tetap di UserController)
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });
 // =======================
 // Route Admin (harus login & role admin)

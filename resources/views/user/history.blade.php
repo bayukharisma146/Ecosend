@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Riwayat Pemesanan - ECOSEND</title>
 
-  <link rel="stylesheet" href="{{ asset('css/style-member.css') }}" />
-  <link rel="stylesheet" href="{{ asset('css/history.css') }}" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -15,31 +16,71 @@
 <body>
   @include('components.navbar-member')
 
-<section class="history-section">
-<div class="container">
-    <h2>Riwayat Pemesanan Anda</h2>
+  <section class="py-10 bg-gray-50 min-h-screen mt-20">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+        Riwayat Pemesanan Anda
+      </h2>
 
-    @forelse($orders as $order)
-    <div class="history-card">
-        <div class="card-header">
-            <h3>Pesanan #EC{{ $order->id }}</h3>
-            <p class="date">Tanggal: {{ $order->created_at->format('d M Y') }}</p>
+      @forelse($orders as $order)
+        <div
+          class="bg-white shadow-md rounded-xl mb-6 overflow-hidden border border-gray-200 transition-transform transform hover:-translate-y-1 hover:shadow-lg">
+          {{-- Header --}}
+          <div class="bg-green-600 text-white px-6 py-3 flex justify-between items-center">
+            <h3 class="font-semibold text-lg">Pesanan #EC{{ $order->id }}</h3>
+            <p class="text-sm opacity-90">Tanggal: {{ $order->created_at->format('d M Y') }}</p>
+          </div>
+
+          {{-- Body --}}
+          <div class="px-6 py-4 space-y-3 text-gray-700">
+            <p class="flex items-center gap-2">
+              <i class="fa fa-barcode text-green-600"></i>
+              <strong>Nomor Resi:</strong>
+              <span>EC{{ $order->id }}</span>
+            </p>
+
+            <p class="flex items-center gap-2">
+              <i class="fa fa-location-dot text-green-600"></i>
+              <strong>Penjemputan:</strong>
+              <span>{{ $order->pickup_address }}</span>
+            </p>
+
+            <p class="flex items-center gap-2">
+              <i class="fa fa-location-arrow text-green-600"></i>
+              <strong>Tujuan:</strong>
+              <span>{{ $order->destination_address }}</span>
+            </p>
+
+            <p class="flex items-center gap-2">
+              <i class="fa fa-car text-green-600"></i>
+              <strong>Armada:</strong>
+              <span>{{ $order->vehicle == 'mobil' ? 'Mobil Listrik' : 'Motor Listrik' }}</span>
+            </p>
+
+            <p class="flex items-center gap-2">
+              <i class="fa fa-wallet text-green-600"></i>
+              <strong>Biaya:</strong>
+              <span>Rp {{ number_format($order->price, 0, ',', '.') }}</span>
+            </p>
+
+            <p class="flex items-center gap-2">
+              <i class="fa fa-circle-check text-green-600"></i>
+              <strong>Status:</strong>
+              <span class="@if(strtolower($order->status) === 'selesai') text-green-600 
+              @elseif(strtolower($order->status) === 'proses') text-yellow-500 
+                          @else text-gray-500 @endif font-medium">
+                {{ ucfirst($order->status) }}
+              </span>
+            </p>
+          </div>
         </div>
-        <div class="card-body">
-            <p><i class="fa fa-barcode"></i> <strong>Nomor Resi:</strong> EC{{ $order->id }}</p>
-            <p><i class="fa fa-location-dot"></i> <strong>Penjemputan:</strong> {{ $order->pickup_address }}</p>
-            <p><i class="fa fa-location-arrow"></i> <strong>Tujuan:</strong> {{ $order->destination_address }}</p>
-            <p><i class="fa fa-car"></i> <strong>Armada:</strong> {{ $order->vehicle == 'mobil' ? 'Mobil Listrik' : 'Motor Listrik' }}</p>
-            <p><i class="fa fa-wallet"></i> <strong>Biaya:</strong> Rp {{ number_format($order->price, 0, ',', '.') }}</p>
-            <p><i class="fa fa-circle-check"></i> <strong>Status:</strong> <span class="status {{ strtolower($order->status) }}">{{ $order->status }}</span></p>
+      @empty
+        <div class="text-center py-12">
+          <p class="text-gray-500 text-lg">Belum ada riwayat pemesanan.</p>
         </div>
+      @endforelse
     </div>
-    @empty
-    <p>Belum ada riwayat pemesanan.</p>
-    @endforelse
-</div>
-</section>
-
+  </section>
 
   @include('components.footer')
 
@@ -76,4 +117,5 @@
     }
   </script>
 </body>
+
 </html>
