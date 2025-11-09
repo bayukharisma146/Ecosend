@@ -114,10 +114,10 @@
           <th>Jenis Kendaraan</th>
           <td>{{ ucfirst($order->vehicle) }}</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <th>Jarak</th>
           <td>{{ number_format($order->distance_Km, 2) }} Km</td>
-        </tr>
+        </tr> -->
         <tr>
           <th>Harga</th>
           <td>Rp {{ number_format($order->price, 0, ',', '.') }}</td>

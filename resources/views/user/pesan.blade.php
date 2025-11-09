@@ -26,6 +26,14 @@
                 <form id="order-form" action="{{ route('user.storePesan') }}" method="POST" class="space-y-5">
                     @csrf
 
+                    <!-- Nomor WhatsApp -->
+                    <div class="relative">
+                        <i class="fa-brands fa-whatsapp absolute left-4 top-3.5 text-green-600"></i>
+                        <input type="tel" name="phone" placeholder="Nomor WhatsApp aktif (contoh: 081234567890 atau 6281234567890)" required
+                            pattern="(62|0)[0-9]{9,13}"
+                            class="w-full pl-10 pr-4 py-3 rounded-lg border border-green-300 focus:ring-2 focus:ring-green-600 focus:outline-none">
+                    </div>
+                    
                     <!-- Alamat Penjemputan -->
                     <div class="relative">
                         <i class="fa-solid fa-location-dot absolute left-4 top-3.5 text-green-600"></i>

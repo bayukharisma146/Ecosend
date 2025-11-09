@@ -27,7 +27,7 @@
           class="bg-white shadow-md rounded-xl mb-6 overflow-hidden border border-gray-200 transition-transform transform hover:-translate-y-1 hover:shadow-lg">
           {{-- Header --}}
           <div class="bg-green-600 text-white px-6 py-3 flex justify-between items-center">
-            <h3 class="font-semibold text-lg">Pesanan #EC{{ $order->id }}</h3>
+            <h3 class="font-semibold text-lg">Pesanan {{ $order->resi }}</h3>
             <p class="text-sm opacity-90">Tanggal: {{ $order->created_at->format('d M Y') }}</p>
           </div>
 
@@ -36,7 +36,7 @@
             <p class="flex items-center gap-2">
               <i class="fa fa-barcode text-green-600"></i>
               <strong>Nomor Resi:</strong>
-              <span>EC{{ $order->id }}</span>
+              <span>EC{{ $order->resi }}</span>
             </p>
 
             <p class="flex items-center gap-2">

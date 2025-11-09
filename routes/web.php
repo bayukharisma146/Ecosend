@@ -58,6 +58,7 @@ Route::middleware([UserMiddleware::class])->group(function () {
 // =======================
 // Route Admin (harus login & role admin)
 // =======================
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware([AdminMiddleware::class])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::post('/admin/update-status/{id}', [AdminController::class, 'updateStatus'])->name('admin.updateStatus');
 });

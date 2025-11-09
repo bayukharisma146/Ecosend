@@ -49,7 +49,18 @@ class PesanController extends Controller
         'destination_address' => 'required|string',
         'vehicle' => 'required|string',
         'time' => 'required|string',
+        'phone' => ['required', 'regex:/^(08|62)[0-9]{8,13}$/'],
+    ], [
+        'phone.regex' => 'Nomor telepon harus diawali dengan 08 atau 62 dan hanya berisi angka.',
     ]);
+
+    // Normalisasi nomor telepon
+    $phone = $request->phone;
+
+    // Jika dimulai dengan 0, ubah ke format 62
+    if (preg_match('/^0/', $phone)) {
+        $phone = '62' . substr($phone, 1);
+    }
 
     $pickupCoord = $this->geocodeAddress($request->pickup_address);
     $destinationCoord = $this->geocodeAddress($request->destination_address);
@@ -61,20 +72,21 @@ class PesanController extends Controller
     $distanceKm = $this->calculateDistance($pickupCoord, $destinationCoord);
     $price = 25000 + ($distanceKm * 10000);
 
-    // === Generate Kode Resi Unik ===
-    $latestOrder = \App\Models\Order::latest()->first();
+    // Generate kode resi unik
+    $latestOrder = Order::latest()->first();
     $nextId = $latestOrder ? $latestOrder->id + 1 : 1;
     $resi = 'ECO-' . date('Ymd') . str_pad($nextId, 3, '0', STR_PAD_LEFT);
 
-    // === Simpan Pesanan ===
-    $order = \App\Models\Order::create([
-        'user_id' => \Auth::id(),
+    // Simpan pesanan
+    Order::create([
+        'user_id' => Auth::id(),
         'resi' => $resi,
         'pickup_address' => $request->pickup_address,
         'destination_address' => $request->destination_address,
         'vehicle' => $request->vehicle,
         'time' => $request->time,
-        'distance_Km' => $distanceKm,
+        'phone' => $phone, // simpan nomor telepon yang sudah diformat
+        'distance_km' => $distanceKm,
         'price' => $price,
         'status' => 'proses',
     ]);
@@ -90,29 +102,60 @@ class PesanController extends Controller
     }
 
     private function geocodeAddress($address)
-    {
-        $apiKey = env('LOCATIONIQ_KEY');
+{
+    $apiKey = env('LOCATIONIQ_KEY');
 
-        $response = Http::get('https://us1.locationiq.com/v1/search.php', [
+    // --- 1️⃣ Coba pakai LocationIQ lebih dulu ---
+    try {
+        $response = Http::timeout(8)->get('https://us1.locationiq.com/v1/search.php', [
             'key' => $apiKey,
             'q' => $address,
             'format' => 'json',
             'limit' => 1,
         ]);
 
-        if ($response->failed()) return null;
+        if ($response->ok()) {
+            $data = $response->json();
 
-        $data = $response->json();
-
-        if (!empty($data) && isset($data[0]['lat'], $data[0]['lon'])) {
-            return [
-                'lat' => $data[0]['lat'],
-                'lon' => $data[0]['lon'],
-            ];
+            if (!empty($data) && isset($data[0]['lat'], $data[0]['lon'])) {
+                return [
+                    'lat' => $data[0]['lat'],
+                    'lon' => $data[0]['lon'],
+                    'source' => 'locationiq'
+                ];
+            }
         }
-
-        return null;
+    } catch (\Exception $e) {
+        \Log::warning('LocationIQ gagal: ' . $e->getMessage());
     }
+
+    // --- 2️⃣ Jika LocationIQ gagal, coba pakai Nominatim (backup) ---
+    try {
+        $response = Http::timeout(8)->get('https://nominatim.openstreetmap.org/search', [
+            'q' => $address,
+            'format' => 'json',
+            'limit' => 1,
+        ]);
+
+        if ($response->ok()) {
+            $data = $response->json();
+
+            if (!empty($data) && isset($data[0]['lat'], $data[0]['lon'])) {
+                return [
+                    'lat' => $data[0]['lat'],
+                    'lon' => $data[0]['lon'],
+                    'source' => 'nominatim'
+                ];
+            }
+        }
+    } catch (\Exception $e) {
+        \Log::error('Nominatim juga gagal: ' . $e->getMessage());
+    }
+
+    // --- 3️⃣ Jika semua gagal ---
+    \Log::error('Gagal geocode alamat: ' . $address);
+    return null;
+}
 
     private function calculateDistance($pickup, $destination)
     {

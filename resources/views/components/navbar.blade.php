@@ -8,22 +8,46 @@
     </a>
 
     <!-- Desktop Menu -->
-    <ul class="hidden md:flex items-center gap-6 text-green-700 font-medium">
-      <li><a href="{{ url('/') }}" class="hover:text-green-900 transition-colors">Beranda</a></li>
+    <ul class="hidden md:flex items-center gap-4 text-green-700 font-medium">
+      <li>
+        <a href="{{ url('/') }}"
+          class="px-4 py-1.5 rounded-full border border-green-600 transition-all duration-300 
+            {{ Request::is('/') ? 'bg-green-600 text-white shadow-sm' : 'hover:bg-green-600 hover:text-white' }}">
+          Beranda
+        </a>
+      </li>
+
       <li>
         <a href="{{ url('/layanan') }}"
-          class="bg-green-600 text-white px-4 py-1.5 rounded-full shadow-sm hover:bg-green-700 transition-all duration-300">
+          class="px-4 py-1.5 rounded-full border border-green-600 transition-all duration-300 
+            {{ Request::is('layanan') ? 'bg-green-600 text-white shadow-sm' : 'hover:bg-green-600 hover:text-white' }}">
           Layanan
         </a>
       </li>
-      <li><a href="{{ url('/dampak-hijau') }}" class="hover:text-green-900 transition-colors">Dampak Hijau</a></li>
+
+      <li>
+        <a href="{{ url('/dampak-hijau') }}"
+          class="px-4 py-1.5 rounded-full border border-green-600 transition-all duration-300 
+            {{ Request::is('dampak-hijau') ? 'bg-green-600 text-white shadow-sm' : 'hover:bg-green-600 hover:text-white' }}">
+          Dampak Hijau
+        </a>
+      </li>
+
       <li>
         <a href="{{ url('/login') }}"
-          class="border-2 border-green-600 text-green-700 px-4 py-1.5 rounded-full hover:bg-green-600 hover:text-white transition-all duration-300">
+          class="px-4 py-1.5 rounded-full border border-green-600 transition-all duration-300 
+            {{ Request::is('login') ? 'bg-green-600 text-white shadow-sm' : 'hover:bg-green-600 hover:text-white' }}">
           Masuk / Daftar
         </a>
       </li>
-      <li><a href="{{ url('/lacak') }}" class="hover:text-green-900 transition-colors">Lacak</a></li>
+
+      <li>
+        <a href="{{ url('/lacak') }}"
+          class="px-4 py-1.5 rounded-full border border-green-600 transition-all duration-300 
+            {{ Request::is('lacak') ? 'bg-green-600 text-white shadow-sm' : 'hover:bg-green-600 hover:text-white' }}">
+          Lacak
+        </a>
+      </li>
     </ul>
 
     <!-- Search Box -->
@@ -51,15 +75,34 @@
 
     <!-- Link Navigasi -->
     <a href="{{ url('/') }}"
-      class="block text-green-700 font-medium hover:bg-green-100 px-3 py-2 rounded-md transition">Beranda</a>
+      class="block px-4 py-2 rounded-full border border-green-600 transition-all duration-300 
+        {{ Request::is('/') ? 'bg-green-600 text-white shadow-sm' : 'text-green-700 hover:bg-green-600 hover:text-white' }}">
+      Beranda
+    </a>
+
     <a href="{{ url('/layanan') }}"
-      class="block text-green-700 font-medium hover:bg-green-100 px-3 py-2 rounded-md transition">Layanan</a>
+      class="block px-4 py-2 rounded-full border border-green-600 transition-all duration-300 
+        {{ Request::is('layanan') ? 'bg-green-600 text-white shadow-sm' : 'text-green-700 hover:bg-green-600 hover:text-white' }}">
+      Layanan
+    </a>
+
     <a href="{{ url('/dampak-hijau') }}"
-      class="block text-green-700 font-medium hover:bg-green-100 px-3 py-2 rounded-md transition">Dampak Hijau</a>
+      class="block px-4 py-2 rounded-full border border-green-600 transition-all duration-300 
+        {{ Request::is('dampak-hijau') ? 'bg-green-600 text-white shadow-sm' : 'text-green-700 hover:bg-green-600 hover:text-white' }}">
+      Dampak Hijau
+    </a>
+
     <a href="{{ url('/login') }}"
-      class="block text-green-700 font-medium hover:bg-green-100 px-3 py-2 rounded-md transition">Masuk / Daftar</a>
+      class="block px-4 py-2 rounded-full border border-green-600 transition-all duration-300 
+        {{ Request::is('login') ? 'bg-green-600 text-white shadow-sm' : 'text-green-700 hover:bg-green-600 hover:text-white' }}">
+      Masuk / Daftar
+    </a>
+
     <a href="{{ url('/lacak') }}"
-      class="block text-green-700 font-medium hover:bg-green-100 px-3 py-2 rounded-md transition">Lacak</a>
+      class="block px-4 py-2 rounded-full border border-green-600 transition-all duration-300 
+        {{ Request::is('lacak') ? 'bg-green-600 text-white shadow-sm' : 'text-green-700 hover:bg-green-600 hover:text-white' }}">
+      Lacak
+    </a>
   </div>
 
   <!-- Background Overlay -->
