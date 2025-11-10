@@ -13,7 +13,7 @@
 <body class="bg-gradient-to-br from-green-50 to-white">
     @include('components.navbar-member')
 
-    <section class="py-16 ">
+    <section class="py-16">
         <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
 
             <!-- Kiri -->
@@ -29,11 +29,11 @@
                     <!-- Nomor WhatsApp -->
                     <div class="relative">
                         <i class="fa-brands fa-whatsapp absolute left-4 top-3.5 text-green-600"></i>
-                        <input type="tel" name="phone" placeholder="Nomor WhatsApp aktif (contoh: 081234567890 atau 6281234567890)" required
+                        <input type="tel" name="phone" placeholder="Nomor WhatsApp aktif" required
                             pattern="(62|0)[0-9]{9,13}"
                             class="w-full pl-10 pr-4 py-3 rounded-lg border border-green-300 focus:ring-2 focus:ring-green-600 focus:outline-none">
                     </div>
-                    
+
                     <!-- Alamat Penjemputan -->
                     <div class="relative">
                         <i class="fa-solid fa-location-dot absolute left-4 top-3.5 text-green-600"></i>
@@ -71,6 +71,10 @@
                     <div class="text-center bg-green-50 rounded-lg py-4">
                         <p class="text-green-700 font-medium">Estimasi Biaya</p>
                         <h3 id="price" class="text-2xl font-bold text-green-800">-</h3>
+
+                        <!-- Hidden inputs -->
+                        <input type="hidden" name="price" id="hidden-price">
+                        <input type="hidden" name="distance_Km" id="hidden-distance">
                     </div>
 
                     <!-- Tombol -->
@@ -93,8 +97,8 @@
 
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('input[name="pickup_address"], input[name="destination_address"]').on('input', function () {
+        $(document).ready(function() {
+            $('input[name="pickup_address"], input[name="destination_address"]').on('input', function() {
                 let pickup = $('input[name="pickup_address"]').val();
                 let destination = $('input[name="destination_address"]').val();
 
@@ -102,24 +106,37 @@
                     $.ajax({
                         url: "{{ route('user.estimatePrice') }}",
                         method: "GET",
-                        data: { pickup: pickup, destination: destination },
-                        success: function (response) {
+                        data: {
+                            pickup: pickup,
+                            destination: destination
+                        },
+                        success: function(response) {
                             if (response.success) {
+                                // ✅ Perbaikan: hapus huruf “i” nyasar di sini
                                 $('#price').text('Rp ' + response.price);
+                                $('#hidden-price').val(response.price_raw || response.price);
+                                $('#hidden-distance').val(response.distance_Km || '');
                             } else {
                                 $('#price').text('-');
+                                $('#hidden-price').val('');
+                                $('#hidden-distance').val('');
                             }
                         },
-                        error: function () {
+                        error: function() {
                             $('#price').text('-');
+                            $('#hidden-price').val('');
+                            $('#hidden-distance').val('');
                         }
                     });
                 } else {
                     $('#price').text('-');
+                    $('#hidden-price').val('');
+                    $('#hidden-distance').val('');
                 }
             });
         });
     </script>
+
 </body>
 
 </html>

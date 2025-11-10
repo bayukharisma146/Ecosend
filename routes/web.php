@@ -10,6 +10,7 @@ use App\Http\Controllers\PesanController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LacakController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MidtransController;
 
 // =======================
 // Route Publik
@@ -40,21 +41,28 @@ Route::post('/forgot-password', [AuthController::class, 'processForgotPassword']
 // Route User (harus login & role user)
 // =======================
 Route::middleware([UserMiddleware::class])->group(function () {
-    Route::get('/pesan', [PesanController::class, 'create'])->name('user.pesan');
     // Form pesan
-    // Route::get('/pesan', [PesanController::class, 'create'])->name('pesan.create');
-
-    // Submit form pesan
+    Route::get('/pesan', [PesanController::class, 'create'])->name('user.pesan');
     Route::post('/pesan', [PesanController::class, 'store'])->name('user.storePesan');
-
     Route::get('/pesan/estimate', [PesanController::class, 'estimatePrice'])->name('user.estimatePrice');
 
     // Riwayat pemesanan
     Route::get('/history', [PesanController::class, 'history'])->name('user.history');
+    Route::delete('/orders/{order}', [HistoryController::class, 'destroy'])->name('orders.destroy');
 
+    // Profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Pembayaran Snap
+    Route::get('/payment/token/{order}', [MidtransController::class, 'getToken'])->name('payment.token');
+    Route::post('/payment/create', [MidtransController::class, 'createPayment'])->name('payment.create');
+    Route::post('/payment/callback', [MidtransController::class, 'callback']);
 });
+
+// Webhook / notification Midtrans (tanpa middleware)
+Route::post('/payment/notification', [MidtransController::class, 'notification']);
+
 // =======================
 // Route Admin (harus login & role admin)
 // =======================
